@@ -1,0 +1,9 @@
+Metadata-Version: 1.2
+Name: flake8-pydantic-skip
+Version: 0.1.0
+Summary: flake8 plugin which checks for skip definition in pydantic model definition
+Home-page: https://github.com/oyfml/flake8-pydantic-skip
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.8

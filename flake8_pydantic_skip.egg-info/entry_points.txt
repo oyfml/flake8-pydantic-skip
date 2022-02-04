@@ -1,0 +1,3 @@
+[flake8.extension]
+TCS = flake8_pydantic_skip:Plugin
+

@@ -1,0 +1,10 @@
+README.md
+flake8_pydantic_skip.py
+setup.cfg
+setup.py
+flake8_pydantic_skip.egg-info/PKG-INFO
+flake8_pydantic_skip.egg-info/SOURCES.txt
+flake8_pydantic_skip.egg-info/dependency_links.txt
+flake8_pydantic_skip.egg-info/entry_points.txt
+flake8_pydantic_skip.egg-info/requires.txt
+flake8_pydantic_skip.egg-info/top_level.txt
