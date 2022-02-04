@@ -15,7 +15,7 @@ SKIP_FUNC_NAME = "Skip"
 
 
 class TypeWrappingNotAllowed:
-    msg = "TCS100 {field_name} in {model_name}: Skip must not type wrapped"
+    msg = "SKP100 {field_name} in {model_name}: Skip must not type wrapped"
 
     @classmethod
     def check(cls, node: ast.ClassDef, errors: List[Flake8ASTErrorInfo]) -> None:
@@ -66,7 +66,7 @@ class TypeWrappingNotAllowed:
 
 
 class InvalidTypeNotAllowed:
-    msg = "TCS101 {field_name} in {model_name}: Invalid type argument in Skip definition"
+    msg = "SKP101 {field_name} in {model_name}: Invalid type argument in Skip definition"
 
     @classmethod
     def check(cls, node: ast.ClassDef, errors: List[Flake8ASTErrorInfo]) -> None:
@@ -139,7 +139,7 @@ class InvalidTypeNotAllowed:
 
 class MissingOptionalNotAllowed:
     msg = (
-        "TCS102 {field_name} in {model_name}: Skip expects Optional type as argument"
+        "SKP102 {field_name} in {model_name}: Skip expects Optional type as argument"
     )
 
     @classmethod
