@@ -11,3 +11,11 @@ flake8 plugin which checks for misuse of `Skip` in [Optional Key Pydantic Model]
 | SKP100 | Skip must not type wrapped                             |
 | SKP101 | Invalid type argument in Skip definition               |
 | SKP102 | Skip expects Optional type as argument                 |
+
+## Run test
+```
+cd /path_to_repo/flake8_pydantic_skip
+pip install -e .
+cd tests
+pytest flake8_pydantic_skip_test.py
+```
