@@ -19,3 +19,9 @@ pip install -e .
 cd tests
 pytest flake8_pydantic_skip_test.py
 ```
+
+## Build
+```
+python setup.py sdist
+twine upload dist/*
+```
