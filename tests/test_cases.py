@@ -1,7 +1,6 @@
 MAIN = """
 from pydantic import BaseModel as PydanticBaseModel
-from pydantic.main import ModelMetaclass
-from typing import List, Optional, _GenericAlias
+from typing import List, Optional, Union, _GenericAlias
 from enum import Enum, EnumMeta
 
 import inspect
@@ -17,31 +16,39 @@ class BaseModel(PydanticBaseModel):
         use_enum_values = True
 
 
-def Skip(_type):
-    if (
-        isinstance(_type, ModelMetaclass) or
-        isinstance(_type, type) or
-        isinstance(_type, _GenericAlias) or
-        isinstance(_type, EnumMeta)
-    ):
-        return _type
-    else:
-        raise ValidationError("argument must be valid type")
+def Skip(_type: Any, default=None):
+    return _type
 
 
 class AdvancedBaseModel(BaseModel):
-    def __init__(self, *args, **kwargs):
-        super().__init__( *args, **kwargs)
-        cls_def: ast.ClassDef = ast.parse(
-            textwrap.dedent(inspect.getsource(self.__class__))
-        ).body[0]
-        ann_assign_list = filter(lambda x: isinstance(x, ast.AnnAssign), cls_def.body)
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        cls_def = [
+            i
+            for i in ast.parse(textwrap.dedent(inspect.getsource(self.__class__))).body
+            if isinstance(i, ast.ClassDef)
+        ][0]
+        ann_assign_list = [i for i in cls_def.body if isinstance(i, ast.AnnAssign)]
         for ann_assign in ann_assign_list:
             if isinstance(ann_assign.annotation, ast.Call):
-                func_name_obj: ast.Name = ann_assign.annotation.func
-                field_name_obj: ast.Name = ann_assign.target
+                func_name_obj: ast.Name = ann_assign.annotation.__getattribute__("func")
+                field_name_obj: ast.Name = ann_assign.__getattribute__("target")
                 if func_name_obj.id == "Skip":
                     field_name = field_name_obj.id
+                    if field_name not in self.__fields_set__:
+                        if len(ann_assign.annotation.keywords) > 0:
+                            keyword = [
+                                kw
+                                for kw in ann_assign.annotation.keywords
+                                if kw.arg == "default"
+                            ][0]
+                            self.__dict__[field_name] = keyword.value.__getattribute__(
+                                "value"
+                            )
+                        elif len(ann_assign.annotation.args) == 2:
+                            self.__dict__[field_name] = ann_assign.annotation.args[
+                                -1
+                            ].__getattribute__("value")
                     if (
                         not self.__fields__[field_name].required
                         and self.__dict__[field_name] is None
