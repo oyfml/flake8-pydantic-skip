@@ -89,24 +89,24 @@ class M(AdvancedBaseModel):
 
 FORBID_TYPE_WRAP = """
 class M(AdvancedBaseModel):
-    a: Optional[Skip(Optional[str])]        # fail TCS100
-    b: List[Skip(Optional[int])]            # fail TCS100
-    c: Skip(Optional[Skip(Optional[str])])  # fail TCS100, TCS101
+    a: Optional[Skip(Optional[str])]        # fail SKP100
+    b: List[Skip(Optional[int])]            # fail SKP100
+    c: Skip(Optional[Skip(Optional[str])])  # fail SKP100, SKP101
 """
 
 INVALID_TYPE = """
 class M(AdvancedBaseModel):
-    a: Skip(abc)                            # fail         TCS102
-    b: Skip([])                             # fail TCS101, TCS102
-    c: Skip(())                             # fail TCS101, TCS102
-    d: Skip()                               # fail TCS101, TCS102
-    e: Skip(Skip(Optional[str]))            # fail TCS101, TCS102
+    a: Skip(abc)                            # fail         SKP102
+    b: Skip([])                             # fail SKP101, SKP102
+    c: Skip(())                             # fail SKP101, SKP102
+    d: Skip()                               # fail SKP101, SKP102
+    e: Skip(Skip(Optional[str]))            # fail SKP101, SKP102
 """
 
 
 MISSING_OPTIONAL = """
 class M(AdvancedBaseModel):
-    a: Skip(List[str])                      # fail TCS102
-    b: Skip(Union[str, int])                # fail TCS102
-    c: Skip(Optional)                       # fail TCS102
+    a: Skip(List[str])                      # fail SKP102
+    b: Skip(Union[str, int])                # fail SKP102
+    c: Skip(Optional)                       # fail SKP102
 """
