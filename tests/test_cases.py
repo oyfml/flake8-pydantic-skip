@@ -20,7 +20,7 @@ def Skip(_type: Any, default=None):
     return _type
 
 
-class AdvancedBaseModel(BaseModel):
+class SkippableBaseModel(BaseModel):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
         cls_def = [
@@ -64,7 +64,7 @@ class BM(BaseModel):
     a: str
 """
 CLEAN_VANILLA = """
-class M(AdvancedBaseModel):
+class M(SkippableBaseModel):
     a: str
     b: Optional[List[str]]
     c: List[List[List[List[int]]]]
@@ -77,7 +77,7 @@ class M(AdvancedBaseModel):
 """
 
 CLEAN_SKIP = """
-class M(AdvancedBaseModel):
+class M(SkippableBaseModel):
     a: Skip(Optional[List[str]])
     c: Skip(Optional[List[List[List[int]]]])
     d: E
@@ -88,14 +88,14 @@ class M(AdvancedBaseModel):
 """
 
 FORBID_TYPE_WRAP = """
-class M(AdvancedBaseModel):
+class M(SkippableBaseModel):
     a: Optional[Skip(Optional[str])]        # fail SKP100
     b: List[Skip(Optional[int])]            # fail SKP100
     c: Skip(Optional[Skip(Optional[str])])  # fail SKP100, SKP101
 """
 
 INVALID_TYPE = """
-class M(AdvancedBaseModel):
+class M(SkippableBaseModel):
     a: Skip(abc)                            # fail         SKP102
     b: Skip([])                             # fail SKP101, SKP102
     c: Skip(())                             # fail SKP101, SKP102
@@ -105,7 +105,7 @@ class M(AdvancedBaseModel):
 
 
 MISSING_OPTIONAL = """
-class M(AdvancedBaseModel):
+class M(SkippableBaseModel):
     a: Skip(List[str])                      # fail SKP102
     b: Skip(Union[str, int])                # fail SKP102
     c: Skip(Optional)                       # fail SKP102

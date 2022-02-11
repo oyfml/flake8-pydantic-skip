@@ -10,7 +10,7 @@ class Flake8ASTErrorInfo(NamedTuple):
     cls: type  # unused currently, but required
 
 
-SPECIAL_MODEL_NAME = "AdvancedBaseModel"
+SPECIAL_MODEL_NAME = "SkippableBaseModel"
 SKIP_FUNC_NAME = "Skip"
 
 
