@@ -1,12 +1,13 @@
 import ast
+
 from flake8_pydantic_skip import Plugin
 
 from .test_cases import (
-    MAIN,
-    CLEAN_VANILLA,
     CLEAN_SKIP,
+    CLEAN_VANILLA,
     FORBID_TYPE_WRAP,
     INVALID_TYPE,
+    MAIN,
     MISSING_OPTIONAL,
 )
 
@@ -36,12 +37,13 @@ def test_invalid_type_in_skip():
         "68:12: SKP101 b in M: Invalid type argument in Skip definition",
         "69:12: SKP101 c in M: Invalid type argument in Skip definition",
         "70:7: SKP101 d in M: Invalid type argument in Skip definition",
-        "71:12: SKP101 e in M: Invalid type argument in Skip definition",
+        "71:7: SKP101 e in M: Invalid type argument in Skip definition",
+        "72:12: SKP101 f in M: Invalid type argument in Skip definition",
         "67:7: SKP102 a in M: Skip expects Optional type as argument",
         "68:7: SKP102 b in M: Skip expects Optional type as argument",
         "69:7: SKP102 c in M: Skip expects Optional type as argument",
         "70:7: SKP102 d in M: Skip expects Optional type as argument",
-        "71:7: SKP102 e in M: Skip expects Optional type as argument",
+        "72:7: SKP102 f in M: Skip expects Optional type as argument",
     }
 
 

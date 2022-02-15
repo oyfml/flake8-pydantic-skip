@@ -1,7 +1,7 @@
 MAIN = """
 from pydantic import BaseModel as PydanticBaseModel
-from typing import List, Optional, Union, _GenericAlias
-from enum import Enum, EnumMeta
+from typing import List, Optional, Union, Any
+from enum import Enum
 
 import inspect
 import ast
@@ -100,7 +100,8 @@ class M(SkippableBaseModel):
     b: Skip([])                             # fail SKP101, SKP102
     c: Skip(())                             # fail SKP101, SKP102
     d: Skip()                               # fail SKP101, SKP102
-    e: Skip(Skip(Optional[str]))            # fail SKP101, SKP102
+    e: Skip                                 # fail SKP101
+    f: Skip(Skip(Optional[str]))            # fail SKP101, SKP102
 """
 
 
